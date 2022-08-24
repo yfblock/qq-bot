@@ -106,3 +106,4 @@ dist
 data
 
 .vscode
+./yarn.lock

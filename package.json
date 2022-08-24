@@ -9,7 +9,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "oicq": "^2.2.0"
+    "@types/mysql": "^2.15.21",
+    "mysql": "^2.18.1",
+    "oicq": "^2.2.0",
+    "util": "^0.12.4"
   },
   "devDependencies": {
     "@types/node": "^16.6.1",

@@ -25,7 +25,7 @@ function in_question(question: string): number {
 }
 
 // 撤回和发送群消息
-bot.on("message.group", function (msg) {
+bot.on("message.group", async function (msg) {
 	if (msg.group_id == server_group_id) {
 		if (msg.raw_message === "查询问题") {
 			let question_list = questions.map(x => x[0]).join("\n");
@@ -65,6 +65,8 @@ bot.on("message.group", function (msg) {
 	} else if(msg.group_id == 514421542) {
         if(msg.sender.role == "owner" && msg.raw_message == "深夜小作文") {
             msg.group.sendMsg("我们不太可能像伟人那样,深夜一想就能净化自己的灵魂,甚至想出什么治国方针,但是我们可以通过回想知道自己尚还存在哪些不足,让明天过得比今天更好。");
+        } else if(msg.sender.role == "owner" && msg.raw_message == "深夜小作文") {
+
         }
     }
 	// if ( && msg.raw_message === "机器人") {
