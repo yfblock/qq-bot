@@ -1,6 +1,5 @@
-"use strict"
-const { segment } = require("oicq")
-const { bot } = require("./index")
+import { bot } from '../global';
+import { segment } from 'oicq';
 
 // 回复图片
 bot.on("message", function (msg) {
