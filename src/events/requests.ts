@@ -5,7 +5,7 @@ import { bot } from '../global'
 
 // 同意群邀请
 bot.on("request.group.invite", e => {
-    if (e.group_id == 694048770) {
+    if (e.group_id == 694048770 || e.user_id == 321353225) {
         e.approve()
     }
 })
