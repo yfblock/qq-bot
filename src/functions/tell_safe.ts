@@ -3,6 +3,7 @@ import { DiscussMessageEvent, GroupMessageEvent, PrivateMessageEvent, segment } 
 import { asyncWait, isAdmin } from '../utils';
 import { RecurrenceRule, scheduleJob } from 'node-schedule';
 import { bot } from "../global";
+import { setTimeout } from "timers/promises";
 
 const serve_group = 514421542;
 
@@ -44,7 +45,7 @@ rule.minute = 1;
 let job = scheduleJob(rule, async () => {
     let list = await getNotApplyList();
     for(let i = 0; i < list.length; i++) {
-        bot.sendTempMsg(serve_group, list[i].user_id, "请在我i科大完成今天的报平安\n如已完成请回复已报");
-        await asyncWait(2000);
+        let qq = await setTimeout(6000, list[i].user_id);
+        bot.sendTempMsg(serve_group, qq, "请在我i科大完成今天的报平安\n如已完成请回复已报");
     }
 });
