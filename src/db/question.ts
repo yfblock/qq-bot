@@ -11,3 +11,11 @@ export async function addQuestion(question: string, answer: string, adder: strin
 export async function findQuestion(question: string) {
     return await query(`select * from question where question = '${question}'`);
 }
+
+export async function deleteQuestion(question: string) {
+    return await query(`delete from question where question = '${question}'`);
+}
+
+export async function updateQuestion(question: string, answer: string) {
+    return await query(`update question set answer='${answer}' where question = '${question}'`);
+}

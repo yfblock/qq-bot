@@ -1,7 +1,7 @@
 import { bot } from "../global";
 import { segment } from "oicq";
 import { query } from "../db/query"
-import { addQuestion, findQuestion, getQuestions } from "../db/question";
+import { addQuestion, deleteQuestion, findQuestion, getQuestions, updateQuestion } from "../db/question";
 
 // hello world
 // bot.on("message", function (msg) {
@@ -53,10 +53,59 @@ bot.on("message.group", async function (msg) {
 				msg.reply(`问题已经存在`, true);
 				return;
 			} else {
-				await addQuestion(question, answer, msg.sender.user_id.toString());
-
 				if (question.trim().length > 0) {
+					await addQuestion(question, answer, msg.sender.user_id.toString());
 					msg.reply(`添加成功 问题: ${question}  答案: ${answer}`, true);
+				} else {
+					msg.reply(`问题格式异常`, true);
+				}
+			}
+		} else if (msg.raw_message.startsWith("删除问题") && (msg.sender.role == "admin" || msg.sender.role == "owner")) {
+			let split_char = '\n';
+			let message = msg.raw_message.substring(4);
+			if (message.charAt(0) == '\r') {
+				split_char = '\r'
+			} else if(message.charAt(0) == split_char) {
+
+			} else {
+				return;
+			}
+			let question = message.substring(1);
+			let searchedQuestion = await findQuestion(question);
+			if (searchedQuestion.length == 0) {
+				msg.reply(`问题已经存在`, true);
+				return;
+			} else {
+				if (question.trim().length > 0) {
+					await deleteQuestion(question);
+					msg.reply(`删除成功 问题: ${question}`, true);
+				} else {
+					msg.reply(`问题格式异常`, true);
+				}
+			}
+		} else if (msg.raw_message.startsWith("修改问题") && (msg.sender.role == "admin" || msg.sender.role == "owner")) {
+			let split_char = '\n';
+			let message = msg.raw_message.substring(4);
+			if (message.charAt(0) == '\r') {
+				split_char = '\r'
+			} else if(message.charAt(0) == split_char) {
+
+			} else {
+				return;
+			}
+			message = message.substring(1);
+			let question_split_index = message.indexOf(split_char);
+			let question = message.substring(0, question_split_index);
+			let answer = message.substring(question_split_index + 1);
+
+			let searchedQuestion = await findQuestion(question);
+			if (searchedQuestion.length == 0) {
+				msg.reply(`问题不存在`, true);
+				return;
+			} else {
+				if (question.trim().length > 0) {
+					await updateQuestion(question, answer);
+					msg.reply(`修改成功 问题: ${question}  答案: ${answer}`, true);
 				} else {
 					msg.reply(`问题格式异常`, true);
 				}
