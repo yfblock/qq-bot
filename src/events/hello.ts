@@ -73,7 +73,7 @@ bot.on("message.group", async function (msg) {
 			let question = message.substring(1);
 			let searchedQuestion = await findQuestion(question);
 			if (searchedQuestion.length == 0) {
-				msg.reply(`问题已经存在`, true);
+				msg.reply(`问题不存在`, true);
 				return;
 			} else {
 				if (question.trim().length > 0) {
