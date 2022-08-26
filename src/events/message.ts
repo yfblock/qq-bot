@@ -2,12 +2,13 @@ import { bot } from "../global";
 import { segment } from "oicq";
 import { query } from "../db/query"
 import { addQuestion, deleteQuestion, findQuestion, getQuestions, updateQuestion } from "../db/question";
+import { listNotApply, personApply, tipNotApply } from "../functions/tell_safe";
 
-// hello world
-// bot.on("message", function (msg) {
-// 	if (msg.raw_message === "hello")
-// 		msg.reply("hello world", true) //改为false则不会引用
-// })
+bot.on("message", function (msg) {
+	if (msg.raw_message == "已报") {
+		personApply(msg);
+	}
+})
 
 // const server_group_id = 514421542;
 const server_group_id = [694048770, 514421542, 613541850];
@@ -110,6 +111,10 @@ bot.on("message.group", async function (msg) {
 					msg.reply(`问题格式异常`, true);
 				}
 			}
+		} else if (msg.raw_message == "谁没有报平安") {
+			listNotApply(msg);
+		} else if (msg.raw_message == "提醒报平安") {
+			tipNotApply(msg);
 		} else {
 			let searchedQuestion = await findQuestion(msg.raw_message);
 			if (searchedQuestion.length <= 0) {

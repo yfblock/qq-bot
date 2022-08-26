@@ -1,4 +1,4 @@
 import "./online"
-import "./hello"
+import "./message"
 import "./requests"
 import "./images"
