@@ -46,6 +46,10 @@ let job = scheduleJob(rule, async () => {
     let list = await getNotApplyList();
     for(let i = 0; i < list.length; i++) {
         let qq = await setTimeout(10000, list[i].user_id);
-        bot.sendTempMsg(serve_group, qq, "请在我i科大完成今天的报平安\n如已完成请回复已报");
+        bot.sendTempMsg(serve_group, qq, "请在我i科大完成今天的报平安");
+        qq = await setTimeout(1000, list[i].user_id);
+        bot.sendTempMsg(serve_group, qq, "如已完成请回复已报");
+        qq = await setTimeout(1000, list[i].user_id);
+        bot.sendTempMsg(serve_group, qq, `祝 ${list[i].name} 生活愉快`);
     }
 });
