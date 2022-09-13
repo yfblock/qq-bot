@@ -1,3 +1,3 @@
 export default {
-    "account": 1583436561
+    "account": process.env.qq
 };

@@ -6,6 +6,14 @@ process.on("unhandledRejection", (reason, promise) => {
 	console.log('Unhandled Rejection at:', promise, 'reason:', reason)
 })
 
+bot.on("system.login.device", () => {
+	bot.logger.mark("输入密保手机收到的短信验证码后按下回车键继续。");
+	bot.sendSmsCode();
+	process.stdin.once("data", (input) => {
+	  bot.submitSmsCode(input.toString());
+	});
+});
+
 if(process.env.qq_password) {
 	bot.on("system.login.slider", function(e) {
 		console.log("请输入ticket:");

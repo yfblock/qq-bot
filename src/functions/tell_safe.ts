@@ -7,7 +7,7 @@ import { setTimeout } from "timers/promises";
 
 const serve_group = 514421542;
 
-export async function personApply(msg: PrivateMessageEvent | GroupMessageEvent | DiscussMessageEvent) {
+export async function personApply(msg: GroupMessageEvent) {
     await safeApply(msg.sender.user_id);
     msg.reply("成功上报", true);
 }
@@ -30,7 +30,7 @@ export async function tipNotApply(msg: GroupMessageEvent) {
         let nameList = list.map(x => segment.at(x.user_id));
         if (nameList.length > 0) {
             msg.reply([
-                "以下同学没有报平安\n请私聊我回复已报\n",
+                "以下同学没有报平安\n请在群里回复已报\n",
                 ...nameList
             ], true);
         } else {
